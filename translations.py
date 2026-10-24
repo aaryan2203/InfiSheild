@@ -5,6 +5,7 @@ Hindi (hi), Gujarati (gu), Marathi (mr), Bengali (bn), Tamil (ta), Telugu (te),
 Kannada (kn), Malayalam (ml), Punjabi (pa), Odia (or), Assamese (as), Urdu (ur), and English (en).
 """
 
+
 LANGUAGES = {
     "en": "English",
     "hi": "Hindi (हिंदी)",
@@ -20,6 +21,7 @@ LANGUAGES = {
     "as": "Assamese (অসমীয়া)",
     "ur": "Urdu (اردو)"
 }
+
 
 UI_TEXT = {
     "en": {
