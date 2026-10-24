@@ -3,9 +3,9 @@
 
 **Detect suspicious calls. Understand the red flags. Protect yourself before it's too late.**
 
-ScamShield AI is an AI-powered scam-call detection prototype designed to help Indian citizens identify digital arrest scams, fake KYC calls, courier fraud, OTP theft, and financial impersonation.
+InfiShield AI is an AI-powered scam-call detection prototype designed to help Indian citizens identify digital arrest scams, fake KYC calls, courier fraud, OTP theft, and financial impersonation.
 
-Using audio analysis, AI-powered risk assessment, and simple-language explanations, ScamShield AI aims to warn users while a simulated call is still in progress.
+Using audio analysis, AI-powered risk assessment, and simple-language explanations, InfiShield AI aims to warn users while a simulated call is still in progress.
 
 > 🚧 **Project Status:** Hackathon MVP / Prototype  
 > 🎯 **Focus:** Voice AI · AI Agents · Cybersecurity · Social Impact  
@@ -56,7 +56,7 @@ These scams are particularly dangerous when victims are alone and have nobody to
 
 ## 💡 Our Solution
 
-ScamShield AI acts as an intelligent safety assistant that analyzes simulated call audio, identifies suspicious conversation patterns, and provides actionable warnings in simple Hindi or Gujarati.
+InfiShield AI acts as an intelligent safety assistant that analyzes simulated call audio, identifies suspicious conversation patterns, and provides actionable warnings in simple Hindi or Gujarati.
 
 Instead of simply labeling a call as suspicious, the system explains *why* it raised an alert.
 
@@ -180,7 +180,7 @@ The prototype aims to display warnings while playback continues. Actual warning 
 ## 📁 Project Structure
 
 ```text
-scamshield-ai/
+infishield-ai/
 ├── app.py
 ├── detector.py
 ├── audio_processor.py
@@ -216,11 +216,11 @@ The files and recordings shown above represent the intended project structure. R
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/scamshield-ai.git
-cd scamshield-ai
+git clone https://github.com/YOUR_USERNAME/infishield-ai.git
+cd infishield-ai
 ```
 
-Replace `YOUR_USERNAME/scamshield-ai` with your actual GitHub repository path.
+Replace `YOUR_USERNAME/infishield-ai` with your actual GitHub repository path.
 
 ### 2. Create a virtual environment
 
@@ -364,7 +364,7 @@ The warning is an example of intended application behavior, not a claim that the
 
 ## ⚠️ Limitations
 
-ScamShield AI is an experimental prototype.
+infiShield AI is an experimental prototype.
 
 - AI can miss scams or incorrectly flag genuine conversations.
 - Audio quality, accents, background noise, and code-switching can affect recognition.
@@ -379,7 +379,7 @@ Users should independently verify suspicious requests through official contact c
 
 ## 🔐 Privacy and Security
 
-ScamShield AI follows a privacy-conscious design approach:
+InfiShield AI follows a privacy-conscious design approach:
 
 - Do not request or store OTPs, passwords, PINs, or banking credentials.
 - Avoid persistent recording storage unless explicitly required and consented to.
@@ -406,7 +406,7 @@ Potential contribution areas include audio processing, multilingual warnings, de
 
 ## ⚖️ Disclaimer
 
-ScamShield AI is an educational cybersecurity project developed for demonstration and awareness purposes. It is not a certified fraud-detection system, a legal authority, or a replacement for official verification.
+InfiShield AI is an educational cybersecurity project developed for demonstration and awareness purposes. It is not a certified fraud-detection system, a legal authority, or a replacement for official verification.
 
 Risk levels are estimates based on available audio and model analysis. A warning should prompt careful verification, not be treated as definitive proof of fraud.
 
@@ -414,6 +414,6 @@ Risk levels are estimates based on available audio and model analysis. A warning
 
 ## ❤️ Built for Social Impact
 
-**ScamShield AI — Because everyone deserves protection from digital fraud.**
+**InfiShield AI — Because everyone deserves protection from digital fraud.**
 
 *Built with AI, designed for accessibility, and focused on safer digital experiences for India.*
