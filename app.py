@@ -181,11 +181,9 @@ if reset_btn:
     flags_display.empty()
     action_display.empty()
 
-# --------------------------------------------------
-# Demo analysis
-# --------------------------------------------------
-
 elif play_btn and scenario_data is not None:
+    from html import escape
+
     chunks = scenario_data.get("chunks", [])
 
     if not chunks:
@@ -194,6 +192,10 @@ elif play_btn and scenario_data is not None:
 
     flags = []
     full_text = ""
+    result = {
+        "risk_level": "UNKNOWN",
+        "detected_red_flags": [],
+    }
 
     transcript_area.info("Starting demo analysis...")
     progress_bar.progress(0)
@@ -202,10 +204,10 @@ elif play_btn and scenario_data is not None:
     action_display.empty()
 
     for i, chunk in enumerate(chunks):
-        # Simulated timing for the prerecorded transcript demo.
         time.sleep(1.5)
 
-        full_text += " " + chunk.get("text", "")
+        segment = chunk.get("text", "")
+        full_text += " " + segment
         current_time = chunk.get("end", 0)
 
         result = analyze_chunk_local(
@@ -217,33 +219,30 @@ elif play_btn and scenario_data is not None:
         flags = result.get("detected_red_flags", [])
         risk = result.get("risk_level", "UNKNOWN")
 
-        # Update transcript
         progress_bar.progress((i + 1) / len(chunks))
 
         transcript_area.markdown(
             f"""
             **Latest Segment**
 
-            > {chunk.get("text", "")}
+            > {escape(segment)}
 
             **Full Transcript**
 
-            {full_text.strip()}
+            {escape(full_text.strip())}
             """
         )
 
-        # Update risk assessment
         if risk == "CRITICAL":
             risk_display.markdown(
                 """
                 <div class="threat-card-critical">
                     <h3>🚨 CRITICAL RISK DETECTED</h3>
-                    <p>Suspicious behavior detected during analysis.</p>
+                    <p>Strong scam indicators were identified.</p>
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
-
         elif risk == "HIGH":
             risk_display.markdown(
                 """
@@ -254,12 +253,11 @@ elif play_btn and scenario_data is not None:
                 """,
                 unsafe_allow_html=True,
             )
-
         else:
             risk_display.markdown(
                 f"""
                 <div class="threat-card-safe">
-                    <h3>ℹ️ {risk} RISK</h3>
+                    <h3>ℹ️ {escape(str(risk))} RISK</h3>
                     <p>No high-risk classification at this stage.
                     This does not guarantee that the call is genuine.</p>
                 </div>
@@ -267,11 +265,9 @@ elif play_btn and scenario_data is not None:
                 unsafe_allow_html=True,
             )
 
-        # Render red flags using native Streamlit components
-        flags_display.empty()
-
+        # Render the current flags once per update.
         with flags_display.container():
-            st.markdown("#### 🚩 Detected Red Flags")
+            st.markdown("### 🚩 Detected Red Flags")
 
             if flags:
                 for flag in flags:
@@ -285,35 +281,35 @@ elif play_btn and scenario_data is not None:
 
                     with st.container(border=True):
                         st.markdown(
-                            f"**{flag.get('type', 'WARNING')}**"
+                            f"**⚠️ {flag.get('type', 'WARNING')}**"
                         )
                         st.write(
                             f"Evidence: {flag.get('evidence', 'Not specified')}"
                         )
                         st.caption(explanation)
             else:
-                st.info(
-                    "No red flags identified in the current analysis."
-                )
+                st.info("No red flags identified yet.")
 
-        # Show safety recommendation during analysis
+        # Safety advice from the detector, if provided.
         recommendation = result.get(
             f"recommended_action_{selected_lang}",
             result.get(
-                "recommended_action_hi",
-                "Do not share OTPs or transfer money under pressure. "
-                "Verify the caller independently.",
+                "recommended_action_en",
+                "Do not share OTPs, PINs, passwords, or money "
+                "with an unverified caller.",
             ),
         )
 
-        action_display.warning(
+        action_display.info(
             f"**Safety Recommendation**\n\n"
             f"{recommendation}\n\n"
-            "**Cybercrime helpline in India: 1930**"
+            "**India Cyber Crime Helpline: 1930**"
         )
 
-    # Keep final results visible after the loop finishes.
-    st.success("Demo analysis completed. Review the final assessment above.")
+    st.success(
+        "Demo analysis completed. Review the final risk assessment "
+        "and detected evidence above."
+    )
 
 # --------------------------------------------------
 # Initial dashboard state
@@ -325,6 +321,11 @@ else:
     )
     progress_bar.progress(0)
     risk_display.info("Status: Ready to Monitor")
+
+    with flags_display.container():
+        st.markdown("### 🚩 Detected Red Flags")
+        st.info("No analysis has been run yet.")
+
     action_display.info(
         "Safety advice will appear when analysis begins."
     )
