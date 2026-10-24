@@ -1,0 +1,7 @@
+{
+  "name": "ScamShield AI — Real-Time Scam Call Detector",
+  "description": "AI-powered real-time scam call detection assistant protecting citizens from digital arrest, fake KYC, and banking fraud across 13 Indian languages including Hindi, Gujarati, Kannada, Malayalam, Marathi, Bengali, Tamil, Telugu, and Punjabi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

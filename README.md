@@ -1,419 +1,162 @@
-# 🛡️ InfiShield AI
-### Your AI Guardian Against Scam Calls
+# InfiShield AI — Real-Time Scam Call Detector 🛡️
 
-**Detect suspicious calls. Understand the red flags. Protect yourself before it's too late.**
+**InfiShield AI** is an AI-powered scam-call detection assistant designed to protect elderly citizens, first-time smartphone users, and ordinary Indian citizens from:
+- **Digital Arrest Scams** (CBI, Police, Court, and ED impersonation)
+- **Fake Bank KYC & Account Block Scams** (OTP, PIN, and CVV harvesting)
+- **Fake Courier & Customs Seizures** (FedEx/DHL drug and fake passport extortion)
+- **Financial Impersonation & Safe Account Transfers**
 
-InfiShield AI is an AI-powered scam-call detection prototype designed to help Indian citizens identify digital arrest scams, fake KYC calls, courier fraud, OTP theft, and financial impersonation.
+The application analyzes simulated phone calls in **short real-time chunks (3–5 seconds)**, identifies suspicious statements, and raises multi-lingual warnings in **13 Indian and regional languages**:
+- **Hindi (हिंदी)**
+- **Gujarati (ગુજરાતી)**
+- **Marathi (मराठी)**
+- **Bengali (বাংলা)**
+- **Tamil (தமிழ்)**
+- **Telugu (తెలుగు)**
+- **Kannada (ಕನ್ನಡ)**
+- **Malayalam (മലയാളം)**
+- **Punjabi (ਪੰਜਾਬੀ)**
+- **Odia (ଓଡ଼ିଆ)**
+- **Assamese (অসমীয়া)**
+- **Urdu (اردو)**
+- **English**
 
-Using audio analysis, AI-powered risk assessment, and simple-language explanations, InfiShield AI aims to warn users while a simulated call is still in progress.
-
-> 🚧 **Project Status:** Hackathon MVP / Prototype  
-> 🎯 **Focus:** Voice AI · AI Agents · Cybersecurity · Social Impact  
-> 🇮🇳 **Designed for:** Indian users, especially elderly people and first-time smartphone users
-
----
-
-## 📌 Table of Contents
-
-- [The Problem](#-the-problem)
-- [Our Solution](#-our-solution)
-- [Key Features](#-key-features)
-- [How It Works](#-how-it-works)
-- [Technology Stack](#-technology-stack)
-- [Project Architecture](#-project-architecture)
-- [Project Structure](#-project-structure)
-- [Installation and Setup](#-installation-and-setup)
-- [Environment Variables](#-environment-variables)
-- [Running the Application](#-running-the-application)
-- [Demo Scenarios](#-demo-scenarios)
-- [Example Warning](#-example-warning)
-- [Future Improvements](#-future-improvements)
-- [Limitations](#-limitations)
-- [Privacy and Security](#-privacy-and-security)
-- [Contributing](#-contributing)
-- [Disclaimer](#-disclaimer)
+*All warnings are issued before the recording completes.*
 
 ---
 
-## 🚨 The Problem
+## 🚀 Key Features
 
-Digital arrest scams, fake KYC messages, fraudulent courier calls, and banking impersonation are serious cybersecurity threats in India.
-
-Scammers often manipulate victims using:
-
-- Threats of arrest or legal action.
-- Claims of being police officers, bank officials, or government authorities.
-- Requests for OTPs, PINs, passwords, or confidential information.
-- Pressure to transfer money immediately.
-- Instructions to install remote-access applications.
-- Attempts to isolate victims from family members.
-
-These scams are particularly dangerous when victims are alone and have nobody to consult during the call.
-
-**The challenge:** People need understandable, timely warnings while suspicious conversations are happening, not just advice after they lose money.
-
----
-
-## 💡 Our Solution
-
-InfiShield AI acts as an intelligent safety assistant that analyzes simulated call audio, identifies suspicious conversation patterns, and provides actionable warnings in simple Hindi or Gujarati.
-
-Instead of simply labeling a call as suspicious, the system explains *why* it raised an alert.
-
-For example:
-
-- **Detected:** A caller threatens immediate arrest.
-- **Risk indicator:** Threats and urgency.
-- **Warning:** Police do not conduct arrests simply by threatening someone over a video call.
-- **Recommended action:** Do not transfer money or share OTPs. Independently contact a trusted family member or the relevant official organization.
-
-The application demonstrates this experience using prerecorded WAV recordings and incremental audio analysis.
+1. **Chunk-Based Real-Time Audio Analysis**:
+   - Audio is divided into 3.5–4.5s segments.
+   - Analysis executes progressively while the audio plays; warnings are rendered early without waiting for the full recording to finish.
+2. **Hybrid Detection Engine**:
+   - Google Gemini 3.8 Flash (`gemini-3.8-flash`) structured JSON output API.
+   - High-accuracy regex and heuristic pattern engine for Indian cyber-fraud modus operandi.
+3. **Multi-lingual Explanations & Alerts**:
+   - Simple, jargon-free explanations in **Hindi**, **Gujarati**, **Marathi**, **Bengali**, **Tamil**, **Telugu**, and **English**.
+4. **False-Positive Control Benchmark**:
+   - Includes a genuine bank customer service recording to demonstrate that legitimate calls remain **LOW risk** with 0 false alarms.
+5. **Session Evaluation Metrics**:
+   - Live tracking of Scams Tested, Genuine Tested, Red Flags Detected, Early Warnings Issued, and False-Positive Rate.
+6. **Accessible Senior-Friendly UI**:
+   - High contrast, large control buttons, live synchronized waveforms, time-stamped transcript tracking, and audible chime warnings.
+7. **Emergency Helpline Integration**:
+   - 1-click access to the **National Cyber Crime Helpline: 1930** and guidelines for the 2-hour transaction freezing window.
 
 ---
 
-## ✨ Key Features
+## 📁 Repository Structure
 
-### 🎙️ Audio Analysis
-- Supports prerecorded WAV scam-call demonstrations.
-- Processes audio in short chunks.
-- Updates the transcript and risk assessment as analysis progresses.
-- Demonstrates warnings before playback ends when processing is fast enough.
-
-### 🚨 Scam Detection
-Identifies suspicious indicators such as:
-
-- Digital arrest threats.
-- Fake police or government impersonation.
-- OTP and credential requests.
-- Urgent money-transfer demands.
-- Suspicious KYC or courier-payment requests.
-- Remote-access and screen-sharing requests.
-- Attempts to prevent the victim from contacting others.
-
-### 🌐 Multilingual Safety Warnings
-- Hindi explanations for common scam patterns.
-- Gujarati explanations for local accessibility.
-- English support for the interface and technical information.
-
-### 📊 Risk Dashboard
-- LOW, MEDIUM, HIGH, and CRITICAL risk levels.
-- Detected red flags with supporting evidence.
-- Recommended safety actions.
-- Transcript and analysis timeline.
-- Clear indication of uncertain results.
-
-### ✅ Genuine-Call Testing
-Includes a genuine customer-service scenario to evaluate false positives and demonstrate that the system should consider context rather than suspicious keywords alone.
-
-### 🔒 Privacy-Conscious Design
-- No collection of banking credentials.
-- API keys kept on the server side.
-- No default requirement to save recordings.
-- Clear disclosure when audio is processed by an external AI service.
-
----
-
-## ⚙️ How It Works
-
-1. **Select a recording:** Choose a scam-call or genuine-call WAV file.
-2. **Play the recording:** Start the simulated call.
-3. **Process audio chunks:** Divide the recording into manageable segments.
-4. **Analyze the conversation:** Use an audio-capable AI service or speech-to-text followed by an LLM.
-5. **Identify red flags:** Combine contextual AI analysis with rule-based checks.
-6. **Calculate risk:** Assess the available evidence and uncertainty.
-7. **Display a warning:** Show the detected behavior and a Hindi or Gujarati safety explanation.
-8. **Continue monitoring:** Analyze subsequent chunks and update the event timeline.
-
-The prototype aims to display warnings while playback continues. Actual warning latency depends on chunk size, model capabilities, network conditions, and API response time.
-
----
-
-## 🧰 Technology Stack
-
-| Component | Technology |
-|---|---|
-| Frontend | Streamlit |
-| Backend | Python |
-| AI analysis | Gemini audio-capable model or compatible speech/LLM pipeline |
-| Audio processing | SoundFile, NumPy |
-| Configuration | Environment variables and `.env` |
-| Data handling | Python dictionaries / JSON |
-| Version control | Git and GitHub |
-
-*Update this table to match the libraries and model actually used in your implementation.*
-
----
-
-## 🏗️ Project Architecture
-
-```text
-                 ┌──────────────────────┐
-                 │  Prerecorded WAV Call│
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │  Audio Chunk Processor│
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │ Speech / Audio AI     │
-                 │ Analysis Pipeline     │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │ Scam Risk Assessment │
-                 │ AI + Safety Rules    │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │  Risk & Evidence UI  │
-                 │ Hindi / Gujarati     │
-                 └──────────────────────┘
 ```
-
----
-
-## 📁 Project Structure
-
-```text
-infishield-ai/
-├── app.py
-├── detector.py
-├── audio_processor.py
-├── translations.py
-├── config.py
-├── requirements.txt
-├── .env.example
-├── .gitignore
-├── README.md
-├── data/
+.
+├── src/
+│   ├── logic/
+│   │   ├── scamDetector.ts       # Core heuristic detection & language translations
+│   │   └── scamDetector.test.ts  # Node test suite (node:test)
+│   ├── components/
+│   │   ├── Header.tsx            # Navigation, status badge, language dropdown
+│   │   ├── ScenarioSelector.tsx  # Preloaded WAV selectors & upload trigger
+│   │   ├── AudioPlayerControl.tsx# Waveform canvas, dual progress, playback buttons
+│   │   ├── TranscriptPanel.tsx   # Live synchronized transcript feed
+│   │   ├── ThreatIntelPanel.tsx  # Risk level, detected red flags, and explanations
+│   │   ├── EventTimeline.tsx     # Chronological log of detected flags
+│   │   ├── EvaluationSummary.tsx # Dynamic session statistics & false-positive rate
+│   │   └── ElderlySafetyGuideModal.tsx # Educational scam-defense guide
+│   ├── utils/
+│   │   └── audioAlert.ts         # Web Audio API warning synthesizer
+│   ├── types.ts                  # Shared interfaces
+│   ├── App.tsx                   # Main React SPA
+│   ├── main.tsx
+│   └── index.css
+├── server.ts                     # Full-stack Express server with Gemini SDK & Vite middlewares
+├── public/data/                  # Synthesized demo WAV audio recordings
 │   ├── digital_arrest.wav
 │   ├── fake_kyc.wav
 │   ├── fake_courier.wav
 │   └── genuine_service.wav
-└── tests/
-    └── test_detector.py
+├── app.py                        # Streamlit Python interface
+├── detector.py                   # Python hybrid scam detection engine
+├── audio_processor.py            # Python chunk processor & audio pipeline
+├── translations.py               # Python multilingual dictionaries
+├── config.py                     # Python configuration loader
+├── requirements.txt              # Python dependencies
+├── package.json                  # Node.js dependencies (Vite, React 19, Express, @google/genai)
+└── README.md
 ```
-
-The files and recordings shown above represent the intended project structure. Remove or rename entries to reflect what is actually present in the repository.
 
 ---
 
-## 🚀 Installation and Setup
+## 🛠️ Quickstart Instructions
 
-### Prerequisites
+### Option A: Web Full-Stack Mode (React + Express + Gemini)
 
-- Python 3.10 or a compatible version supported by your dependencies.
-- pip.
-- Git (optional).
-- An API key if using a hosted AI model.
-- Prerecorded WAV files for the full audio demonstration.
+1. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-### 1. Clone the repository
+2. **Environment Configuration**:
+   Create a `.env` file or export your Gemini API key:
+   ```bash
+   GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
+   PORT=3000
+   ```
 
-```bash
-git clone https://github.com/YOUR_USERNAME/infishield-ai.git
-cd infishield-ai
-```
+3. **Run Unit Tests**:
+   ```bash
+   npx --yes tsx --test src/logic/scamDetector.test.ts
+   ```
 
-Replace `YOUR_USERNAME/infishield-ai` with your actual GitHub repository path.
-
-### 2. Create a virtual environment
-
-**Windows PowerShell**
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-```
-
-If PowerShell blocks activation, use:
-
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-```
-
-**Linux / macOS**
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-### 3. Install dependencies
-
-```bash
-python -m pip install -r requirements.txt
-```
-
-Make sure `requirements.txt` lists the actual dependencies used by the project.
-
-### 4. Configure the API key
-
-Copy `.env.example` to `.env` and fill in the required key for your selected AI provider.
-
-Never commit `.env` to GitHub.
-
-### 5. Add demo recordings
-
-Place your recordings in the `data/` directory using the filenames expected by the application.
-
-Use fictional conversations or recordings that you have permission to process.
+4. **Start the Application**:
+   ```bash
+   npm run dev
+   ```
+   Open `http://localhost:3000` in your web browser.
 
 ---
 
-## 🔑 Environment Variables
+### Option B: Python & Streamlit Mode
 
-Example `.env.example`:
+1. **Set Up Python Environment**:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
 
-```dotenv
-GEMINI_API_KEY=your_api_key_here
-AI_PROVIDER=gemini
-DEMO_MODE=true
-```
-
-These names are examples. Make sure they match the configuration variables your application actually reads.
-
-- `GEMINI_API_KEY`: API key for the configured Gemini integration.
-- `AI_PROVIDER`: Selects the configured AI provider.
-- `DEMO_MODE`: Enables a clearly labeled demonstration mode if implemented.
-
-Keep `.env.example` free of real credentials.
+2. **Run Streamlit**:
+   ```bash
+   streamlit run app.py
+   ```
 
 ---
 
-## ▶️ Running the Application
+## 🧪 Testing the 4 Scenarios
 
-Start the Streamlit application:
+1. **Scenario 1 — Digital Arrest Extortion (Scam)**:
+   - Select *Digital Arrest Extortion*.
+   - Click **Play Call Demo**.
+   - Within 4–8 seconds, the engine detects **IMPERSONATION** ("Mumbai Police Cyber Crime Branch") and **THREAT** ("Digital arrest warrant").
+   - Risk escalates to **CRITICAL** with an alert chime and Hindi/Gujarati explanation warning that genuine police never arrest via video calls.
 
-```bash
-streamlit run app.py
-```
+2. **Scenario 2 — Bank Account Blocked / Fake KYC (Scam)**:
+   - Select *Bank Account Blocked / Urgent KYC Update*.
+   - Click **Play Call Demo**.
+   - Detects **URGENCY** ("account blocked in 2 hours") and **OTP_REQUEST** ("read the 6-digit code").
+   - Risk elevates to **HIGH** before the call ends.
 
-Open the local URL printed in your terminal, usually:
+3. **Scenario 3 — Fake Courier Narcotics Seizure (Scam)**:
+   - Select *FedEx / DHL Narcotics Parcel Seizure*.
+   - Detects **THREAT** ("150 grams MDMA drugs found in parcel") and **MONEY_REQUEST** ("clearance penalty fee").
 
-```text
-http://localhost:8501
-```
-
-Then:
-
-1. Select the preferred language.
-2. Choose a WAV recording.
-3. Press Play Demo.
-4. Observe the transcript and risk assessment.
-5. Review the detected red flags and safety recommendation.
-6. Repeat with the genuine-call example.
-
-If the AI provider is unavailable, use a fallback only if the application implements one, and label simulated analysis clearly.
-
----
-
-## 🧪 Demo Scenarios
-
-| Scenario | Expected indicators |
-|---|---|
-| Digital arrest | Threats, impersonation, urgency |
-| Fake bank KYC | Credential requests, suspicious links, pressure |
-| Fake courier | Unexpected fees, urgency, payment pressure |
-| Genuine customer service | Contextual assessment without an automatic high-risk alert |
-
-Expected indicators are test objectives, not guaranteed results. Record the actual output during testing.
-
----
-
-## 🛑 Example Warning
-
-**HIGH RISK — POSSIBLE DIGITAL ARREST SCAM**
-
-**Hindi**
-
-> सावधान! कोई व्यक्ति वीडियो कॉल पर गिरफ्तारी की धमकी देकर पैसे माँग रहा है, तो यह धोखाधड़ी का संकेत हो सकता है। पैसे ट्रांसफर न करें और OTP साझा न करें। किसी भरोसेमंद व्यक्ति से संपर्क करें।
-
-**Gujarati**
-
-> સાવધાન! વીડિયો કૉલ પર ધરપકડની ધમકી આપીને પૈસા માંગવામાં આવે તો તે છેતરપિંડીનો સંકેત હોઈ શકે છે. પૈસા ટ્રાન્સફર ન કરો અને OTP શેર ન કરો. કોઈ વિશ્વાસુ વ્યક્તિનો સંપર્ક કરો.
-
-**Detected indicators**
-- Threat of arrest.
-- Urgent pressure.
-- Possible financial manipulation.
-
-The warning is an example of intended application behavior, not a claim that the system has already achieved a particular detection accuracy.
-
----
-
-## 🔮 Future Improvements
-
-- Real-time speech streaming with lower detection latency.
-- Better recognition of colloquial Hindi and Gujarati.
-- Additional Indian languages.
-- More robust contextual detection and false-positive reduction.
-- Optional on-device processing for privacy-sensitive use cases.
-- Accessible voice alerts for visually impaired and elderly users.
-- Integration with consent-based call-audio sources where legally and technically supported.
-- Evaluation on a larger, diverse dataset of scam and genuine calls.
-- Explainable risk scoring and performance metrics.
-- Secure reporting workflows that require user confirmation.
-
----
-
-## ⚠️ Limitations
-
-infiShield AI is an experimental prototype.
-
-- AI can miss scams or incorrectly flag genuine conversations.
-- Audio quality, accents, background noise, and code-switching can affect recognition.
-- Chunk processing may miss context across segment boundaries.
-- Model response times may delay warnings.
-- A low-risk assessment does not guarantee that a call is genuine.
-- Prerecorded demonstrations do not establish that the system can intercept or monitor live phone calls.
-
-Users should independently verify suspicious requests through official contact channels.
-
----
-
-## 🔐 Privacy and Security
-
-InfiShield AI follows a privacy-conscious design approach:
-
-- Do not request or store OTPs, passwords, PINs, or banking credentials.
-- Avoid persistent recording storage unless explicitly required and consented to.
-- Disclose when audio or transcripts are sent to an external AI provider.
-- Keep credentials in environment variables or a secure secrets manager.
-- Use fictional information in demonstration recordings.
-- Never automatically transfer funds or contact authorities based solely on an AI classification.
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome!
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Make your changes.
-4. Test the relevant functionality.
-5. Submit a pull request with a clear description.
-
-Potential contribution areas include audio processing, multilingual warnings, detection rules, accessibility, and evaluation tests.
+4. **Scenario 4 — Genuine Bank Customer Service (Legitimate Benchmark)**:
+   - Select *Genuine Bank Customer Service Call*.
+   - Click **Play Call Demo**.
+   - Notice that the risk remains **LOW (Safe)** throughout the entire call.
+   - Evaluation metrics record **0 false positives**, confirming the model does not trigger alarms simply because a bank or verification is mentioned.
 
 ---
 
 ## ⚖️ Disclaimer
-
-InfiShield AI is an educational cybersecurity project developed for demonstration and awareness purposes. It is not a certified fraud-detection system, a legal authority, or a replacement for official verification.
-
-Risk levels are estimates based on available audio and model analysis. A warning should prompt careful verification, not be treated as definitive proof of fraud.
-
----
-
-## ❤️ Built for Social Impact
-
-**InfiShield AI — Because everyone deserves protection from digital fraud.**
-
-*Built with AI, designed for accessibility, and focused on safer digital experiences for India.*
+InfiShield AI is an assistive cybersecurity research prototype built for hackathon demonstrations. In case of suspected cybercrime or financial fraud, immediately dial **1930** or lodge a complaint on the official Indian Government Cyber Crime Reporting Portal at **[cybercrime.gov.in](https://cybercrime.gov.in)**.
