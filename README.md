@@ -1,4 +1,4 @@
-# 🛡️ ScamShield AI
+# 🛡️ InfiShield AI
 ### Your AI Guardian Against Scam Calls
 
 **Detect suspicious calls. Understand the red flags. Protect yourself before it's too late.**
